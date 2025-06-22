@@ -8,8 +8,8 @@ export const App = () => {
   <>
     <Router>
       <div>
-      <Link to="/signup">Signup</Link>
-      <Link to="/login">Login</Link>
+      <Link to="/signup"></Link>
+      <Link to="/login"></Link>
       </div>
       <Routes>
         <Route path='/signup' element={<Signup/>}/>
@@ -17,6 +17,7 @@ export const App = () => {
       </Routes>
     </Router>
   </>
+  
   )
 }
 
