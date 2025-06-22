@@ -5,3 +5,4 @@ export const Signup = () => {
     <div className="text-2xl font-bold text-red-500">Signup</div>
   )
 }
+export default Signup
