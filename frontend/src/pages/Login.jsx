@@ -11,9 +11,9 @@ export const Login = () => {
 
 
   return (
-    <div className="min-h-screen bg-blue-500 flex items-center justify-center p-4">
-        <div className="bg-gradient-to-br from-purple-300 to-purple-400 bg-opacity-60 border-2 border-cyan-400 rounded-3xl p-8 w-full max-w-md shadow-2xl backdrop-blur-sm">
-            <h1 className="text-3xl font-light text-white text-center mb-8">Login</h1>
+    <div className="min-h-screen bg-[#6448FF] flex items-center justify-center p-4 font-serif">
+        <div className="bg-gradient-to-br from-white/40 to-white/12 rounded-3xl p-8 w-full max-w-md shadow-xl backdrop-blur-2xl">
+            <h1 className="text-3xl text-white text-center mb-10">Login</h1>
             <div className="space-y-6">
                 <div>
                     <input
@@ -21,7 +21,7 @@ export const Login = () => {
                     placeholder='email'
                     value={email}
                     onChange={(e)=>setEmail(e.target.value)}
-                    className="w-full px-4 py-3 rounded-full bg-purple bg-opacity-20 border-2 border-white border-opacity-40 text-black placeholder-white placeholder-opacity-80 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-transparent text-center"
+                    className="w-full px-4 py-3 rounded-xl bg-purple bg-opacity-20 border-2 text-white border-white border-opacity-40 placeholder-white placeholder-opacity-80 focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-transparent text-center"
                     />
                 </div>
 
@@ -31,25 +31,25 @@ export const Login = () => {
                     placeholder='password'
                     value={password}
                     onChange={(e)=>setPassword(e.target.value)}
-                    className="w-full px-4 py-3 rounded-full bg-purple bg-opacity-20 border-2 border-white border-opacity-40 text-white placeholder-white placeholder-opacity-80 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:border-transparent text-center"
+                    className="w-full px-4 py-3 rounded-xl bg-purple bg-opacity-20 border-2 border-white border-opacity-40 text-white placeholder-white placeholder-opacity-80 focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-transparent text-center"
                     />
                 </div>
 
                 <div className="flex justify-center">
                     <button
                     onClick={handleSubmit}
-                    className="px-8 py-3 rounded-full bg-purple bg-opacity-25 border-2 border-white border-opacity-50 text-white font-medium hover:bg-opacity-35 focus:outline-none focus:ring-2 focus:ring-cyan-300 transition-all duration-200"
+                    className="px-8 py-3 rounded-xl bg-purple bg-opacity-25 border-2 border-white border-opacity-50 text-white font-medium hover:bg-opacity-35 focus:outline-none transition-all duration-200 hover:cursor-pointer hover:bg-white/20 mt-5"
                     >
                     Submit
                     </button>
                 </div>
-                <div className="mt-6 text-center">
-                    <p className="text-white text-sm">
-                         Dont have an account?
-                        <a href='/signup' className="text-blue-600 hover:text-cyan-100 underline">
+                <div className="mt-6 text-center flex items-center justify-center">
+                    <p className="text-white text-sm font-light mr-2">
+                         Dont have an account? 
+                    </p>
+                    <a href='/signup' className="text-blue-800 hover:text-cyan-100 underline text-sm">
                         Sign Up
                         </a>
-                    </p>
                 </div>
             </div>
         </div>
