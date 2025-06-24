@@ -12,11 +12,14 @@ router.post('/logout', authMiddleware, logout);
 
 // Protected Routes
 router.get('/profile', authMiddleware, (req, res) => {
+  const { name, email } = req.user;  
+
   res.json({
     success: true,
     message: 'Profile accessed successfully',
-    user: req.user
+    user: { name, email }         
   });
 });
+
 
 module.exports = router;

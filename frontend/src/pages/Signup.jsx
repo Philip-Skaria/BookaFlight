@@ -1,18 +1,45 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const Signup = () => {
   const [name, setName]       = useState('');
   const [email, setEmail]     = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    console.log('sign up attempt:', { name, email, password });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || 'Signup failed');
+      }
+
+      localStorage.setItem('token', data.token);
+
+      navigate('/user');
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
     <div className="min-h-screen bg-[#6448FF] flex items-center justify-center p-4 font-serif">
       <div className="bg-gradient-to-br from-white/40 to-white/12 rounded-3xl p-8 w-full max-w-md shadow-xl backdrop-blur-2xl">
         <h1 className="text-3xl text-white text-center mb-10">Sign Up</h1>
+        {error && <p className="text-red-400 text-center mb-4">{error}</p>}
         <div className="space-y-6">
           <div>
             <input
