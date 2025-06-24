@@ -69,8 +69,8 @@ const signup = (req, res) => {
 // Login User
 const login = (req, res) => {
     const { email, password } = req.body;
-
     if (!email || !password) {
+        console.log('Please provide email and password')
         return res.status(400).json({
             success: false,
             message: 'Please provide email and password'
@@ -79,6 +79,7 @@ const login = (req, res) => {
 
     User.findByEmail(email, (err, user) => {
         if (err) {
+            console.log('Server error')
             return res.status(500).json({
                 success: false,
                 message: 'Server error'
@@ -86,6 +87,7 @@ const login = (req, res) => {
         }
 
         if (!user) {
+            console.log('Invalid email or password')
             return res.status(400).json({
                 success: false,
                 message: 'Invalid email or password'
@@ -95,6 +97,7 @@ const login = (req, res) => {
         // Compare password
         bcrypt.compare(password, user.password, (err, isMatch) => {
         if (err) {
+            console.log('Server error')
             return res.status(500).json({
             success: false,
             message: 'Server error'
@@ -102,6 +105,7 @@ const login = (req, res) => {
         }
 
         if (!isMatch) {
+            console.log('Invalid email or password')
             return res.status(400).json({
             success: false,
             message: 'Invalid email or password'
