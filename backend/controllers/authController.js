@@ -25,7 +25,7 @@ const signup = (req, res) => {
         }
 
         if (existingUser) {
-            return res.state(400).json({
+            return res.status(400).json({
                 success: false,
                 message: 'User already exists with this email'
             });
