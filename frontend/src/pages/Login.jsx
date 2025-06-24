@@ -1,12 +1,40 @@
 import React from 'react'
 import {useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 
 export const Login = () => {
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
+    const [error,setError]=useState('')
+    const navigate=useNavigate()
 
-    const handleSubmit=()=>{
+    // const handleSubmit=()=>{
+    //     console.log("login attempt:",{email,password})
+    // }
+    const handleSubmit=async(e)=>{
         console.log("login attempt:",{email,password})
+        e.preventDefault()
+        setError('')
+
+        try{
+            const res=await fetch('http://localhost:5000/api/auth/login',{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json',
+                },
+                body:JSON.stringify({email,password}),
+            })
+
+        const data=await res.json()
+        if(!res.ok){
+            throw new Error(data.message||'Login Failed')
+        }
+        localStorage.setItem('token',data.token)
+        navigate('/user')
+        }
+        catch(err){
+            setError(err.message)
+        }
     }
 
 
