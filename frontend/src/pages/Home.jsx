@@ -33,6 +33,12 @@ const Home = () => {
         }
     }
 
+    const handleLogout=()=>{
+        localStorage.removeItem('authToken')
+        setIsloggedIn(false)
+        navigate('/')
+    }
+
     const handleSubmit=(e)=>{
         e.preventDefault()
         console.log("flight details:",{from,to,depart,returnDate,travellers})
@@ -44,9 +50,20 @@ return(
             <h1 className="text-2xl font-semibold">BookaFlight</h1>
             <div className="space-x-4">
                 <Link to="/signup" className="hover:underline">Sign Up</Link>
-                <button onClick={handleLoginClick} className="hover:underline">
-                    {isLoggedIn ? 'My Account':'Login'}
-                </button>
+                    {isLoggedIn ?(
+                        <>
+                        <button onClick={handleLoginClick} className="hover:underline">
+                            My Account
+                        </button>
+                        <button onClick={handleLogout} className="hover:underline">
+                            Logout
+                        </button>
+                        </>
+                    ):(
+                        <button onClick={handleLoginClick} className="hover:underline">
+                            Login
+                        </button>
+                    )}
             </div>
         </div>
         <h2 className="text-3xl text-center font-semibold mb-10">Book Your Flight Now</h2>
