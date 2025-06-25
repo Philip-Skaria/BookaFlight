@@ -1,6 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import {useState} from 'react'
+import {useNavigate} from 'react-router-dom'
+import {useEffect} from 'react'
 
 const Home = () => {
     const [from,setFrom]=useState('')
@@ -8,6 +10,28 @@ const Home = () => {
     const [depart,setDepart]=useState('')
     const [returnDate,setReturnDate]=useState('')
     const [travellers,setTravellers]=useState('')
+    const [isLoggedIn,setIsloggedIn]=useState(true)
+
+    const navigate=useNavigate()
+
+    useEffect(()=>{
+        const checkAuthStatus=()=>{
+            const token=localStorage.getItem('authToken')
+            if(token){
+                setIsloggedIn(true)
+            }
+        }
+        checkAuthStatus()
+    },[])
+
+    const handleLoginClick=()=>{
+        if(isLoggedIn){
+            navigate('/user')
+        }
+        else{
+            navigate('/login')
+        }
+    }
 
     const handleSubmit=(e)=>{
         e.preventDefault()
@@ -20,7 +44,9 @@ return(
             <h1 className="text-2xl font-semibold">BookaFlight</h1>
             <div className="space-x-4">
                 <Link to="/signup" className="hover:underline">Sign Up</Link>
-                <Link to="/login" className="hover:underline">Login</Link>
+                <button onClick={handleLoginClick} className="hover:underline">
+                    {isLoggedIn ? 'My Account':'Login'}
+                </button>
             </div>
         </div>
         <h2 className="text-3xl text-center font-semibold mb-10">Book Your Flight Now</h2>
@@ -59,7 +85,7 @@ return(
                 type="date"
                 className="p-4 bg-gray-200 text-black rounded-md w-[140px] text-center"
                 value={returnDate}
-                onChange={(e)=>setReturn(e.target.value)}
+                onChange={(e)=>setReturnDate(e.target.value)}
                 />
                 <input
                 type="text"
