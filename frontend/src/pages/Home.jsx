@@ -29,7 +29,7 @@ return (
             className="h-screen bg-cover bg-center font-poppins"
             style={{ backgroundImage: "url('/assets/home_bg2.png')" }}
         >
-            {/* Make this a column that spaces its children top ↔ bottom :)*/}
+            {/* Make this a column that spaces its children top ↔ bottom*/}
             <div className="h-full flex flex-col justify-between font-medium">
             
             {/* Top Nav */}
