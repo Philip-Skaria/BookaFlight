@@ -8,7 +8,6 @@ export const Signup = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -35,9 +34,24 @@ export const Signup = () => {
     }
   };
 
+  const handleHomeClick = () => {
+    navigate('/');
+  };
+
   return (
-    <div className="min-h-screen bg-[#6448FF] flex items-center justify-center p-4 font-serif">
-      <div className="bg-gradient-to-br from-white/40 to-white/12 rounded-3xl p-8 w-full max-w-md shadow-xl backdrop-blur-2xl">
+    <div className="min-h-screen bg-gradient-to-br from-[#B46879] to-[#E57456] flex items-center justify-center p-4 font-poppins relative">
+        {/* Home Button - Top Left */}
+        <button 
+            onClick={handleHomeClick}
+           className="absolute top-6 left-6 hover:opacity-80 transition-opacity duration-200 hover:cursor-pointer"
+        >
+            <img src="./assets/logo.png" alt="" className="w-10 ml-5" />
+        </button>
+
+        <div className="bg-gradient-to-br from-white/24 to-white/12 rounded-3xl p-8 w-full max-w-md backdrop-blur-[128px]"
+        style={{
+            boxShadow: '0px 0px 81.8px 7px rgba(0, 0, 0, 0.25)',
+        }}>
         <h1 className="text-3xl text-white text-center mb-10">Sign Up</h1>
         {error && <p className="text-red-400 text-center mb-4">{error}</p>}
         <div className="space-y-6">
@@ -47,7 +61,7 @@ export const Signup = () => {
               placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-purple bg-opacity-20 border-2 border-white border-opacity-40 text-white placeholder-white placeholder-opacity-80 focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-transparent text-center"
+              className="w-full px-4 py-3 rounded-xl bg-purple bg-opacity-20 border-2 border-white border-opacity-40 text-white placeholder-white placeholder-opacity-80 focus:outline-none focus:ring-2 focus:ring-red-900 focus:border-transparent text-center"
             />
           </div>
 
@@ -57,7 +71,7 @@ export const Signup = () => {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-purple bg-opacity-20 border-2 border-white border-opacity-40 text-white placeholder-white placeholder-opacity-80 focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-transparent text-center"
+              className="w-full px-4 py-3 rounded-xl bg-purple bg-opacity-20 border-2 border-white border-opacity-40 text-white placeholder-white placeholder-opacity-80 focus:outline-none focus:ring-2 focus:ring-red-900 focus:border-transparent text-center"
             />
           </div>
 
@@ -67,7 +81,7 @@ export const Signup = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-purple bg-opacity-20 border-2 border-white border-opacity-40 text-white placeholder-white placeholder-opacity-80 focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-transparent text-center"
+              className="w-full px-4 py-3 rounded-xl bg-purple bg-opacity-20 border-2 border-white border-opacity-40 text-white placeholder-white placeholder-opacity-80 focus:outline-none focus:ring-2 focus:ring-red-900 focus:border-transparent text-center"
             />
           </div>
 
@@ -87,7 +101,7 @@ export const Signup = () => {
           </p>
           <a
             href="/login"
-            className="text-blue-800 hover:text-cyan-100 underline text-sm"
+            className="text-red-900 hover:text-cyan-100 underline text-sm"
           >
             Login
           </a>

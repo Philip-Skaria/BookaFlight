@@ -6,7 +6,8 @@ export default {
         customPurple : '#6448FF',
       },
       fontFamily: {
-        serif: ['"Source Serif 4"', 'serif'],
+        serif: ["Source Serif 4", 'serif'],
+        poppins: ['Poppins', 'sans-serif'],
       },
     },
   },
