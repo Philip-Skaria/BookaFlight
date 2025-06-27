@@ -1,18 +1,57 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
-// import {useEffect} from 'react'
 
 const Home = () => {
     const [from,setFrom]=useState('')
     const [to,setTo]=useState('')
     const [depart,setDepart]=useState('')
+    const [user, setUser] = useState(null)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
     const navigate=useNavigate()
 
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            setIsLoggedIn(false);
+            return;
+        }
+
+        const fetchProfile = async () => {
+            try {
+                const res = await fetch('http://localhost:5000/api/auth/profile', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (res.status === 401) {
+                    localStorage.removeItem('token');
+                    setIsLoggedIn(false);
+                    return;
+                }
+
+                const data = await res.json();
+                if (!res.ok) {
+                    throw new Error(data.message || 'Failed to fetch profile');
+                }
+
+                setUser(data.user);
+                setIsLoggedIn(true);
+            } catch (err) {
+                console.error('Profile fetch error:', err);
+                setIsLoggedIn(false);
+            }
+        };
+
+        fetchProfile();
+    }, []);
+
     const handleLoginClick=()=>{
-        navigate('/user')
+        navigate('/login')
     }
 
     const handleSignupClick = () => {
@@ -20,8 +59,13 @@ const Home = () => {
         navigate('/signup')
     }
 
+    const handleUserClick = () => {
+        navigate('/user');
+    }
+
     const handleSearchClick = () => {
         console.log("Flight search:", { from, to, depart })
+        navigate('/flights')
     }
 
 return (
@@ -39,18 +83,29 @@ return (
                 Book<span className="text-red-500">a</span>Flight
                 </div>
                 <div className="text-[20px] font-normal">
-                <button 
-                    onClick={handleLoginClick}
-                    className="hover:bg-[#FF5F46]/50 px-3 py-1 rounded-xl mr-2 transition-colors duration-300 hover:cursor-pointer"
-                >
-                    Login
-                </button>
-                <button 
-                    onClick={handleSignupClick}
-                    className="hover:bg-[#FF5F46]/50 px-3 py-1 rounded-xl transition-colors duration-300 hover:cursor-pointer"
-                >
-                    Signup
-                </button>
+                    {isLoggedIn && user ? (
+                        <button 
+                            onClick={handleUserClick}
+                            className="hover:bg-[#FF5F46]/50 px-3 py-1 rounded-xl transition-colors duration-300 hover:cursor-pointer"
+                        >
+                            {user.name || user.username || user.email}
+                        </button>
+                    ) : (
+                        <>
+                            <button 
+                                onClick={handleLoginClick}
+                                className="hover:bg-[#FF5F46]/50 px-3 py-1 rounded-xl mr-2 transition-colors duration-300 hover:cursor-pointer"
+                            >
+                                Login
+                            </button>
+                            <button 
+                                onClick={handleSignupClick}
+                                className="hover:bg-[#FF5F46]/50 px-3 py-1 rounded-xl transition-colors duration-300 hover:cursor-pointer"
+                            >
+                                Signup
+                            </button>
+                        </>
+                    )}
                 </div>
             </div>
 

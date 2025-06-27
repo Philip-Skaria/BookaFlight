@@ -32,7 +32,7 @@ export const Login = () => {
             throw new Error(data.message||'Login Failed') 
         } 
         localStorage.setItem('token',data.token) 
-        navigate('/user') 
+        navigate('/flights') 
         } 
         catch(err){ 
             setError(err.message) 
