@@ -9,6 +9,9 @@ const Home = () => {
     const [depart,setDepart]=useState('')
     const [user, setUser] = useState(null)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [flights,setFlights]=useState([])
+
+
 
     const navigate=useNavigate()
 
@@ -63,10 +66,35 @@ const Home = () => {
         navigate('/user');
     }
 
-    const handleSearchClick = () => {
-        console.log("Flight search:", { from, to, depart })
-        navigate('/flights')
+const handleSearchClick = async () => {
+    console.log("🔍 handleSearchClick fired");
+    console.log("Sending POST to backend with:", { from, to });
+
+    try {
+        const response = await fetch('http://localhost:5000/api/flights/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ from, to }),
+        });
+
+        const data = await response.json();
+        console.log("✅ Got response from backend:", data);
+
+        navigate('/flights', {
+            state: {
+                flights: data,
+                from,
+                to,
+                depart,
+            },
+        });
+    } catch (err) {
+        console.error('❌ Error fetching flights:', err);
     }
+};
+
 
 return (
         <div
